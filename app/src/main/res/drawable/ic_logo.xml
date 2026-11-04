@@ -1,0 +1,43 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- Shield Background -->
+    <path
+        android:fillColor="#0B2545"
+        android:pathData="M50,5 L90,20 V50 C90,75 50,95 50,95 C50,95 10,75 10,50 V20 Z" />
+    <path
+        android:fillColor="#168BFF"
+        android:pathData="M50,10 L84,23 V48 C84,70 50,88 50,88 C50,88 16,70 16,48 V23 Z" />
+    <!-- Golden Border Accent -->
+    <path
+        android:strokeColor="#FFC928"
+        android:strokeWidth="2.5"
+        android:pathData="M50,12 L82,24 V47 C82,68 50,85 50,85 C50,85 18,68 18,47 V24 Z" />
+    <!-- School Building -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M32,45 L50,32 L68,45 V72 H32 Z" />
+    <!-- School Roof Peak Clock / Emblem -->
+    <path
+        android:fillColor="#FFC928"
+        android:pathData="M50,38 L54,42 H46 Z" />
+    <path
+        android:fillColor="#0B2545"
+        android:pathData="M40,52 H46 V60 H40 Z M54,52 H60 V60 H54 Z" />
+    <!-- Door -->
+    <path
+        android:fillColor="#FFC928"
+        android:pathData="M46,62 H54 V72 H46 Z" />
+    <!-- Safety Checkmark Emblem -->
+    <path
+        android:fillColor="#22C55E"
+        android:pathData="M50,22 C53.3,22 56,24.7 56,28 C56,31.3 53.3,34 50,34 C46.7,34 44,31.3 44,28 C44,24.7 46.7,22 50,22 Z" />
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M47,28 L49,30 L53,26" />
+</vector>

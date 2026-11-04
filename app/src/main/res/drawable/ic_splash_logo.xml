@@ -1,0 +1,40 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="160dp"
+    android:height="160dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- Outer Glow / Shield -->
+    <path
+        android:fillColor="#10365B"
+        android:pathData="M50,2 L95,19 V52 C95,78 50,98 50,98 C50,98 5,78 5,52 V19 Z" />
+    <path
+        android:fillColor="#168BFF"
+        android:pathData="M50,8 L88,22 V50 C88,72 50,90 50,90 C50,90 12,72 12,50 V22 Z" />
+    <path
+        android:strokeColor="#FFC928"
+        android:strokeWidth="3"
+        android:pathData="M50,11 L84,24 V48 C84,68 50,86 50,86 C50,86 16,68 16,48 V24 Z" />
+    <!-- School Building -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,44 L50,30 L70,44 V74 H30 Z" />
+    <path
+        android:fillColor="#FFC928"
+        android:pathData="M50,36 L55,41 H45 Z" />
+    <path
+        android:fillColor="#0B2545"
+        android:pathData="M38,52 H45 V61 H38 Z M55,52 H62 V61 H55 Z" />
+    <path
+        android:fillColor="#FFC928"
+        android:pathData="M45,63 H55 V74 H45 Z" />
+    <!-- Safety Circle -->
+    <path
+        android:fillColor="#22C55E"
+        android:pathData="M50,20 C54,20 57,23 57,27 C57,31 54,34 50,34 C46,34 43,31 43,27 C43,23 46,20 50,20 Z" />
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M46.5,27 L49,29.5 L53.5,25" />
+</vector>
