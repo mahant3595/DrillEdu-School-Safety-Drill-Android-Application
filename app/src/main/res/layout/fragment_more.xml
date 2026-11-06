@@ -80,12 +80,217 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
-            android:text="More Options &amp; Tools"
+            android:text="Safety Tools &amp; Expansion Modules"
             android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <!-- 1. Safety Guidelines -->
+        <!-- 1. Badges & Achievements -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/menu_achievements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/card_bg"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="14dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Icon"
+                    android:src="@drawable/ic_achievement" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:text="Badges &amp; Achievements"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="Arrow"
+                    android:src="@drawable/ic_arrow_right" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 2. Drill Simulator Timer -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/menu_timer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/card_bg"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="14dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Icon"
+                    android:src="@drawable/ic_timer" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:text="Drill Speed Simulator"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="Arrow"
+                    android:src="@drawable/ic_arrow_right" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 3. Campus Hazard Reporter -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/menu_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/card_bg"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="14dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Icon"
+                    android:src="@drawable/ic_report" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:text="Campus Hazard Reporter"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="Arrow"
+                    android:src="@drawable/ic_arrow_right" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 4. Evacuation Map -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/menu_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/card_bg"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="14dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Icon"
+                    android:src="@drawable/ic_map" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:text="Campus Evacuation Map"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="Arrow"
+                    android:src="@drawable/ic_arrow_right" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 5. Flashcards -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/menu_flashcards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/card_bg"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="14dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Icon"
+                    android:src="@drawable/ic_flashcards" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:text="Safety Flashcard Review"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="Arrow"
+                    android:src="@drawable/ic_arrow_right" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 6. Safety Guidelines -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/menu_guidelines"
             android:layout_width="match_parent"
@@ -126,7 +331,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- 2. Preparedness Checklist -->
+        <!-- 7. Preparedness Checklist -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/menu_checklist"
             android:layout_width="match_parent"
@@ -167,7 +372,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- 3. Emergency Contacts -->
+        <!-- 8. Emergency Contacts -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/menu_contacts"
             android:layout_width="match_parent"
@@ -208,7 +413,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- 4. My Progress -->
+        <!-- 9. My Progress -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/menu_progress"
             android:layout_width="match_parent"
@@ -249,7 +454,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- 5. Settings -->
+        <!-- 10. Settings -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/menu_settings"
             android:layout_width="match_parent"
@@ -290,7 +495,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- 6. About DrillEdu -->
+        <!-- 11. About DrillEdu -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/menu_about"
             android:layout_width="match_parent"
@@ -338,7 +543,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:text="DrillEdu v1.0 • Disaster Management Project"
+            android:text="DrillEdu v2.0 • Disaster Management Project"
             android:textColor="@color/text_muted"
             android:textSize="12sp" />
 

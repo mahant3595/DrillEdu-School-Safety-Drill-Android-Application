@@ -1,7 +1,9 @@
 package com.example.drilledu;
 
+import com.example.drilledu.models.AchievementItem;
 import com.example.drilledu.models.ChecklistItem;
 import com.example.drilledu.models.DrillItem;
+import com.example.drilledu.models.IncidentReport;
 import com.example.drilledu.models.QuizQuestion;
 import com.example.drilledu.models.QuizResult;
 
@@ -41,5 +43,25 @@ public class DrillEduUnitTest {
 
         QuizResult result = new QuizResult(1, "Fire", 4, 5, System.currentTimeMillis());
         assertEquals(80, result.getPercentage());
+    }
+
+    @Test
+    public void testIncidentReportModel() {
+        IncidentReport report = new IncidentReport(1, "Blocked Stairwell", "Exit Blocked",
+                "Science Block 2nd Floor", "HIGH", "Boxes blocking exit path", System.currentTimeMillis(), "LOGGED");
+
+        assertEquals("Blocked Stairwell", report.getTitle());
+        assertEquals("HIGH", report.getUrgency());
+        assertEquals("LOGGED", report.getStatus());
+    }
+
+    @Test
+    public void testAchievementModel() {
+        AchievementItem achievement = new AchievementItem("ach_1", "First Responder",
+                "Complete first drill", "ic_achievement", false, 0, 0, 1);
+
+        assertFalse(achievement.isUnlocked());
+        achievement.setUnlocked(true);
+        assertTrue(achievement.isUnlocked());
     }
 }

@@ -23,10 +23,9 @@
             app:strokeColor="@color/primary_blue"
             app:strokeWidth="1dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
@@ -39,8 +38,22 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tv_streak_badge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/bg_status_pending"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp"
+                    android:text="🔥 3-Day Streak"
+                    android:textColor="@color/accent_orange"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_greeting"
                     android:layout_marginTop="6dp"
                     android:text="Welcome to DrillEdu!"
                     android:textColor="@color/text_primary"
@@ -50,12 +63,95 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_below="@id/tv_greeting"
+                    android:layout_marginTop="36dp"
                     android:text="Safety is everyone's responsibility. Learn, prepare, and stay safe."
                     android:textColor="@color/text_secondary"
                     android:textSize="14sp" />
-            </LinearLayout>
+            </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <!-- Quick Interactive Tools Chips Scroll -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Interactive Safety Tools"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_tool_timer"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="⏱️ Drill Simulator"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp"
+                    app:backgroundTint="@color/chip_bg"
+                    app:cornerRadius="22dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_tool_report"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="⚠️ Hazard Reporter"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp"
+                    app:backgroundTint="@color/chip_bg"
+                    app:cornerRadius="22dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_tool_map"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="🗺️ Evacuation Map"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp"
+                    app:backgroundTint="@color/chip_bg"
+                    app:cornerRadius="22dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_tool_flashcards"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="🃏 Flashcards"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp"
+                    app:backgroundTint="@color/chip_bg"
+                    app:cornerRadius="22dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_tool_achievements"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:text="🏆 Badges"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp"
+                    app:backgroundTint="@color/chip_bg"
+                    app:cornerRadius="22dp" />
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <!-- Main Feature Cards Grid -->
         <TextView

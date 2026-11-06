@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark_navy"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/bg_secondary"
+        android:elevation="4dp"
+        android:paddingHorizontal="16dp">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:padding="6dp"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/btn_back"
+            android:text="Flashcard Quick Review"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_flashcard_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Card 1 of 5"
+                android:textColor="@color/safety_yellow"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- Interactive Flip Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_flip_container"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/card_bg"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:strokeColor="@color/primary_blue"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <ImageView
+                        android:id="@+id/iv_flashcard_icon"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:contentDescription="Card Icon"
+                        android:src="@drawable/ic_flashcards" />
+
+                    <TextView
+                        android:id="@+id/tv_flashcard_side_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="[ QUESTION - TAP TO REVEAL ]"
+                        android:textColor="@color/safety_yellow"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_flashcard_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:gravity="center"
+                        android:lineSpacingExtra="4dp"
+                        android:text="What is the P.A.S.S. technique for using a Fire Extinguisher?"
+                        android:textColor="@color/text_primary"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Next Card Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_next_flashcard"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="24dp"
+                android:text="Next Flashcard →"
+                android:textColor="@color/bg_dark_navy"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/safety_yellow"
+                app:cornerRadius="10dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

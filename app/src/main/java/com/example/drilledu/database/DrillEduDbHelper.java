@@ -6,9 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.drilledu.models.AchievementItem;
 import com.example.drilledu.models.ChecklistItem;
 import com.example.drilledu.models.DrillItem;
 import com.example.drilledu.models.EmergencyContact;
+import com.example.drilledu.models.IncidentReport;
 import com.example.drilledu.models.LearningResource;
 import com.example.drilledu.models.QuizQuestion;
 import com.example.drilledu.models.QuizResult;
@@ -20,7 +22,7 @@ import java.util.List;
 public class DrillEduDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "drilledu.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Table names
     private static final String TABLE_SAFETY_GUIDES = "safety_guides";
@@ -30,6 +32,8 @@ public class DrillEduDbHelper extends SQLiteOpenHelper {
     private static final String TABLE_QUIZZES = "quizzes";
     private static final String TABLE_QUIZ_RESULTS = "quiz_results";
     private static final String TABLE_CONTACTS = "emergency_contacts";
+    private static final String TABLE_INCIDENTS = "incidents";
+    private static final String TABLE_ACHIEVEMENTS = "achievements";
 
     private static DrillEduDbHelper instance;
 
@@ -46,62 +50,64 @@ public class DrillEduDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create Safety Guides table
         db.execSQL("CREATE TABLE " + TABLE_SAFETY_GUIDES + " (" +
-                "id TEXT PRIMARY KEY, " +
-                "title TEXT, category TEXT, summary TEXT, iconName TEXT, " +
+                "id TEXT PRIMARY KEY, title TEXT, category TEXT, summary TEXT, iconName TEXT, " +
                 "intro TEXT, hazards TEXT, prevention TEXT, " +
                 "beforeSteps TEXT, duringSteps TEXT, afterSteps TEXT, warnings TEXT)");
 
-        // Create Drills table
         db.execSQL("CREATE TABLE " + TABLE_DRILLS + " (" +
                 "id TEXT PRIMARY KEY, title TEXT, type TEXT, iconName TEXT, " +
                 "purpose TEXT, prepInstructions TEXT, procedureSteps TEXT, " +
                 "dosAndDonts TEXT, safetyReminders TEXT, isCompleted INTEGER, completedTimestamp INTEGER)");
 
-        // Create Checklists table
         db.execSQL("CREATE TABLE " + TABLE_CHECKLISTS + " (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, category TEXT, text TEXT, " +
                 "drillType TEXT, isCompleted INTEGER)");
 
-        // Create Resources table
         db.execSQL("CREATE TABLE " + TABLE_RESOURCES + " (" +
                 "id TEXT PRIMARY KEY, title TEXT, category TEXT, type TEXT, " +
                 "readTime TEXT, summary TEXT, fullContent TEXT, iconName TEXT, isBookmarked INTEGER)");
 
-        // Create Quizzes table
         db.execSQL("CREATE TABLE " + TABLE_QUIZZES + " (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, category TEXT, questionText TEXT, " +
                 "optionA TEXT, optionB TEXT, optionC TEXT, optionD TEXT, " +
                 "correctOptionIndex INTEGER, explanation TEXT)");
 
-        // Create Quiz Results table
         db.execSQL("CREATE TABLE " + TABLE_QUIZ_RESULTS + " (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, category TEXT, score INTEGER, " +
                 "totalQuestions INTEGER, timestamp INTEGER)");
 
-        // Create Emergency Contacts table
         db.execSQL("CREATE TABLE " + TABLE_CONTACTS + " (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, category TEXT, " +
                 "phoneNumber TEXT, description TEXT, iconName TEXT, isCustom INTEGER)");
+
+        db.execSQL("CREATE TABLE " + TABLE_INCIDENTS + " (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, category TEXT, " +
+                "location TEXT, urgency TEXT, description TEXT, timestamp INTEGER, status TEXT)");
+
+        db.execSQL("CREATE TABLE " + TABLE_ACHIEVEMENTS + " (" +
+                "id TEXT PRIMARY KEY, title TEXT, description TEXT, iconName TEXT, " +
+                "isUnlocked INTEGER, unlockedTimestamp INTEGER, currentProgress INTEGER, targetProgress INTEGER)");
 
         seedData(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SAFETY_GUIDES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DRILLS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CHECKLISTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RESOURCES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUIZZES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUIZ_RESULTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
-        onCreate(db);
+        if (oldVersion < 2) {
+            db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_INCIDENTS + " (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, category TEXT, " +
+                    "location TEXT, urgency TEXT, description TEXT, timestamp INTEGER, status TEXT)");
+
+            db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_ACHIEVEMENTS + " (" +
+                    "id TEXT PRIMARY KEY, title TEXT, description TEXT, iconName TEXT, " +
+                    "isUnlocked INTEGER, unlockedTimestamp INTEGER, currentProgress INTEGER, targetProgress INTEGER)");
+
+            seedAchievements(db);
+        }
     }
 
     private void seedData(SQLiteDatabase db) {
-        // Seed Safety Guides
         insertGuide(db, "guide_fire", "Fire Safety", "Fire", "Prevention & action steps during school fires", "ic_fire",
                 "School fires can spread rapidly. Staying calm and taking immediate evacuation action is vital.",
                 "Electrical short circuits, combustible laboratory chemicals, damaged wiring, unattended heat sources.",
@@ -199,7 +205,7 @@ public class DrillEduDbHelper extends SQLiteOpenHelper {
                 "DO: Assist classmates needing help. Remain quiet.\nDONT: Do not block exit gates.",
                 "Every second counts during an evacuation.", 0, 0);
 
-        // Seed Checklist Items
+        // Seed Checklists
         insertChecklist(db, "BEFORE", "Know the designated emergency exits for your classroom block", "General", 0);
         insertChecklist(db, "BEFORE", "Learn the school evacuation route and secondary backup exit", "Fire", 0);
         insertChecklist(db, "BEFORE", "Identify designated safe assembly point on school grounds", "General", 0);
@@ -238,25 +244,25 @@ public class DrillEduDbHelper extends SQLiteOpenHelper {
                 "Step-by-step procedure for shelter-in-place scenarios.",
                 "Lockdown procedures protect students from external campus threats. When lockdown is called, move out of sight, silence all mobile devices, remain completely quiet, and follow teacher directives until law enforcement or administrators open the room.", "ic_lockdown", 0);
 
-        // Seed Quiz Questions
+        // Seed Quizzes
         insertQuiz(db, "Fire", "What should you do FIRST when you hear the school fire alarm?",
-                "Finish your current written work", "Leave belongings behind and follow teacher's evacuation instructions",
-                "Run as fast as possible to the school gate", "Hide under your study desk", 1,
-                "During a fire drill, leave all belongings behind and evacuate immediately in an orderly manner.");
+                "Finish your written work", "Leave belongings behind & follow teacher evacuation route",
+                "Run as fast as possible to the gate", "Hide under your desk", 1,
+                "During a fire drill, leave all belongings behind and evacuate immediately in single file.");
 
         insertQuiz(db, "Fire", "If you encounter smoke while evacuating a burning building, you should:",
-                "Stand up straight and run fast", "Crawl low on hands and knees where air is cleaner",
-                "Open all windows to let smoke out", "Use the central elevator", 1,
+                "Stand straight and run", "Crawl low on hands and knees where air is cleaner",
+                "Open all windows", "Use the central elevator", 1,
                 "Toxic smoke rises, so crawling low provides clearer air to breathe during evacuation.");
 
         insertQuiz(db, "Earthquake", "During an earthquake, what is the correct protective action?",
-                "Run out into the corridor immediately", "Drop, Cover, and Hold On under a sturdy desk",
-                "Stand next to tall glass windows", "Use the elevator to reach ground floor", 1,
+                "Run out into corridor immediately", "Drop, Cover, and Hold On under a sturdy desk",
+                "Stand next to tall glass windows", "Use the elevator", 1,
                 "Drop, Cover, and Hold On protects you from falling lighting, ceiling tiles, and debris.");
 
         insertQuiz(db, "Earthquake", "If you are outdoors on school grounds when an earthquake occurs, you should:",
-                "Move to an open area away from buildings, trees, and power lines", "Run inside the nearest building",
-                "Stand directly under a heavy tree for shelter", "Climb onto the roof", 0,
+                "Move to open area away from buildings, trees, and power lines", "Run inside nearest building",
+                "Stand directly under a heavy tree", "Climb onto roof", 0,
                 "Outdoors, open ground away from structures and utility poles is safest during shaking.");
 
         insertQuiz(db, "General", "What is the nationwide integrated emergency number in India?",
@@ -264,11 +270,11 @@ public class DrillEduDbHelper extends SQLiteOpenHelper {
                 "112 is the single unified emergency helpline number across India for Police, Fire, and Ambulance.");
 
         insertQuiz(db, "General", "After reaching the school assembly point during a drill, students must:",
-                "Go home immediately", "Stay with their class and answer the roll call",
-                "Re-enter the classroom to get bags", "Wander around the sports ground", 1,
+                "Go home immediately", "Stay with class and answer roll call",
+                "Re-enter classroom for bags", "Wander around sports ground", 1,
                 "Roll call ensures all students are accounted for and no one is missing inside the building.");
 
-        // Seed Emergency Contacts
+        // Seed Contacts
         insertContact(db, "National Emergency Helpline", "National", "112", "Single unified emergency number for India", "ic_call", 0);
         insertContact(db, "Fire & Rescue Services", "Fire", "101", "Immediate fire brigade emergency service", "ic_fire", 0);
         insertContact(db, "Ambulance Emergency", "Medical", "102", "Emergency medical transport service", "ic_medical", 0);
@@ -276,6 +282,31 @@ public class DrillEduDbHelper extends SQLiteOpenHelper {
         insertContact(db, "School Administrative Office", "School", "+91 98765 43210", "Main school front desk and safety desk", "ic_school", 0);
         insertContact(db, "School Safety Coordinator", "School", "+91 98765 43211", "Designated emergency drill officer", "ic_person", 0);
         insertContact(db, "Parent / Guardian Contact", "Parent", "+91 98765 43212", "Primary family emergency contact", "ic_contacts", 0);
+
+        seedAchievements(db);
+    }
+
+    private void seedAchievements(SQLiteDatabase db) {
+        insertAchievement(db, "ach_first_drill", "First Responder", "Complete your first school safety drill", "ic_achievement", 0, 0, 0, 1);
+        insertAchievement(db, "ach_fire_master", "Fire Warden", "Pass the Fire Safety quiz with 100% score", "ic_fire", 0, 0, 0, 1);
+        insertAchievement(db, "ach_earthquake_master", "Earthquake Master", "Complete the Earthquake drill procedure", "ic_earthquake", 0, 0, 0, 1);
+        insertAchievement(db, "ach_checklist_pro", "Checklist Champion", "Check off 100% of preparedness items", "ic_checklist", 0, 0, 0, 14);
+        insertAchievement(db, "ach_hazard_reporter", "Safety Reporter", "Log a hazard report for campus safety", "ic_report", 0, 0, 0, 1);
+        insertAchievement(db, "ach_drill_timer", "Speedy Evacuator", "Complete a timed evacuation challenge", "ic_timer", 0, 0, 0, 1);
+    }
+
+    private void insertAchievement(SQLiteDatabase db, String id, String title, String desc, String icon,
+                                   int unlocked, long timestamp, int current, int target) {
+        ContentValues cv = new ContentValues();
+        cv.put("id", id);
+        cv.put("title", title);
+        cv.put("description", desc);
+        cv.put("iconName", icon);
+        cv.put("isUnlocked", unlocked);
+        cv.put("unlockedTimestamp", timestamp);
+        cv.put("currentProgress", current);
+        cv.put("targetProgress", target);
+        db.insertWithOnConflict(TABLE_ACHIEVEMENTS, null, cv, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     private void insertGuide(SQLiteDatabase db, String id, String title, String category, String summary,
@@ -424,6 +455,11 @@ public class DrillEduDbHelper extends SQLiteOpenHelper {
         cv.put("isCompleted", isCompleted ? 1 : 0);
         cv.put("completedTimestamp", isCompleted ? System.currentTimeMillis() : 0);
         db.update(TABLE_DRILLS, cv, "id = ?", new String[]{drillId});
+
+        // Trigger achievement check
+        if (isCompleted) {
+            unlockAchievement("ach_first_drill");
+        }
     }
 
     public List<ChecklistItem> getChecklistByCategory(String category) {
@@ -550,6 +586,10 @@ public class DrillEduDbHelper extends SQLiteOpenHelper {
         cv.put("totalQuestions", totalQuestions);
         cv.put("timestamp", System.currentTimeMillis());
         db.insert(TABLE_QUIZ_RESULTS, null, cv);
+
+        if (score == totalQuestions && "Fire".equalsIgnoreCase(category)) {
+            unlockAchievement("ach_fire_master");
+        }
     }
 
     public List<QuizResult> getQuizResults() {
@@ -600,6 +640,78 @@ public class DrillEduDbHelper extends SQLiteOpenHelper {
         db.update(TABLE_CONTACTS, cv, "id = ?", new String[]{String.valueOf(id)});
     }
 
+    // --- Incident Reporting Methods ---
+
+    public void insertIncidentReport(IncidentReport report) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("title", report.getTitle());
+        cv.put("category", report.getCategory());
+        cv.put("location", report.getLocation());
+        cv.put("urgency", report.getUrgency());
+        cv.put("description", report.getDescription());
+        cv.put("timestamp", report.getTimestamp());
+        cv.put("status", report.getStatus());
+        db.insert(TABLE_INCIDENTS, null, cv);
+
+        unlockAchievement("ach_hazard_reporter");
+    }
+
+    public List<IncidentReport> getAllIncidents() {
+        List<IncidentReport> list = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.query(TABLE_INCIDENTS, null, null, null, null, null, "timestamp DESC");
+        if (c != null && c.moveToFirst()) {
+            do {
+                list.add(new IncidentReport(
+                        c.getLong(c.getColumnIndexOrThrow("id")),
+                        c.getString(c.getColumnIndexOrThrow("title")),
+                        c.getString(c.getColumnIndexOrThrow("category")),
+                        c.getString(c.getColumnIndexOrThrow("location")),
+                        c.getString(c.getColumnIndexOrThrow("urgency")),
+                        c.getString(c.getColumnIndexOrThrow("description")),
+                        c.getLong(c.getColumnIndexOrThrow("timestamp")),
+                        c.getString(c.getColumnIndexOrThrow("status"))
+                ));
+            } while (c.moveToNext());
+            c.close();
+        }
+        return list;
+    }
+
+    // --- Achievement Methods ---
+
+    public List<AchievementItem> getAllAchievements() {
+        List<AchievementItem> list = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.query(TABLE_ACHIEVEMENTS, null, null, null, null, null, "id ASC");
+        if (c != null && c.moveToFirst()) {
+            do {
+                list.add(new AchievementItem(
+                        c.getString(c.getColumnIndexOrThrow("id")),
+                        c.getString(c.getColumnIndexOrThrow("title")),
+                        c.getString(c.getColumnIndexOrThrow("description")),
+                        c.getString(c.getColumnIndexOrThrow("iconName")),
+                        c.getInt(c.getColumnIndexOrThrow("isUnlocked")) == 1,
+                        c.getLong(c.getColumnIndexOrThrow("unlockedTimestamp")),
+                        c.getInt(c.getColumnIndexOrThrow("currentProgress")),
+                        c.getInt(c.getColumnIndexOrThrow("targetProgress"))
+                ));
+            } while (c.moveToNext());
+            c.close();
+        }
+        return list;
+    }
+
+    public void unlockAchievement(String achievementId) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("isUnlocked", 1);
+        cv.put("unlockedTimestamp", System.currentTimeMillis());
+        cv.put("currentProgress", 1);
+        db.update(TABLE_ACHIEVEMENTS, cv, "id = ?", new String[]{achievementId});
+    }
+
     public void resetAllData() {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues resetCv = new ContentValues();
@@ -616,5 +728,12 @@ public class DrillEduDbHelper extends SQLiteOpenHelper {
         db.update(TABLE_RESOURCES, resetCv, null, null);
 
         db.delete(TABLE_QUIZ_RESULTS, null, null);
+        db.delete(TABLE_INCIDENTS, null, null);
+
+        resetCv.clear();
+        resetCv.put("isUnlocked", 0);
+        resetCv.put("unlockedTimestamp", 0);
+        resetCv.put("currentProgress", 0);
+        db.update(TABLE_ACHIEVEMENTS, resetCv, null, null);
     }
 }

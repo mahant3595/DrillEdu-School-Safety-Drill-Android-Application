@@ -14,11 +14,16 @@ import androidx.fragment.app.Fragment;
 
 import com.example.drilledu.MainActivity;
 import com.example.drilledu.R;
+import com.example.drilledu.activities.AchievementsActivity;
 import com.example.drilledu.activities.ChecklistActivity;
+import com.example.drilledu.activities.DrillTimerActivity;
 import com.example.drilledu.activities.EmergencyContactsActivity;
+import com.example.drilledu.activities.EvacuationMapActivity;
+import com.example.drilledu.activities.FlashcardsActivity;
 import com.example.drilledu.activities.GuidelinesActivity;
 import com.example.drilledu.activities.ProgressActivity;
 import com.example.drilledu.activities.QuizActivity;
+import com.example.drilledu.activities.ReportIncidentActivity;
 import com.example.drilledu.database.DrillEduDbHelper;
 import com.example.drilledu.models.ChecklistItem;
 import com.example.drilledu.models.DrillItem;
@@ -82,6 +87,22 @@ public class HomeFragment extends Fragment {
 
         view.findViewById(R.id.btn_progress_details).setOnClickListener(v ->
                 startActivity(new Intent(requireContext(), ProgressActivity.class)));
+
+        // New Feature Quick Action Tools
+        view.findViewById(R.id.btn_tool_timer).setOnClickListener(v ->
+                startActivity(new Intent(requireContext(), DrillTimerActivity.class)));
+
+        view.findViewById(R.id.btn_tool_report).setOnClickListener(v ->
+                startActivity(new Intent(requireContext(), ReportIncidentActivity.class)));
+
+        view.findViewById(R.id.btn_tool_map).setOnClickListener(v ->
+                startActivity(new Intent(requireContext(), EvacuationMapActivity.class)));
+
+        view.findViewById(R.id.btn_tool_flashcards).setOnClickListener(v ->
+                startActivity(new Intent(requireContext(), FlashcardsActivity.class)));
+
+        view.findViewById(R.id.btn_tool_achievements).setOnClickListener(v ->
+                startActivity(new Intent(requireContext(), AchievementsActivity.class)));
     }
 
     private void updateDashboardData() {

@@ -1,0 +1,52 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="160dp"
+    android:viewportWidth="300"
+    android:viewportHeight="200">
+    <!-- Ground Background -->
+    <path
+        android:fillColor="#0B2545"
+        android:pathData="M0,0H300V200H0Z" />
+
+    <!-- Main School Building Blocks -->
+    <path
+        android:fillColor="#10365B"
+        android:strokeColor="#168BFF"
+        android:strokeWidth="2"
+        android:pathData="M20,20 H130 V110 H20 Z" />
+    <path
+        android:fillColor="#10365B"
+        android:strokeColor="#168BFF"
+        android:strokeWidth="2"
+        android:pathData="M170,20 H280 V110 H170 Z" />
+
+    <!-- Connecting Corridor Block -->
+    <path
+        android:fillColor="#17436E"
+        android:pathData="M130,50 H170 V80 H130 Z" />
+
+    <!-- Evacuation Exit Paths -->
+    <path
+        android:strokeColor="#22C55E"
+        android:strokeWidth="3"
+        android:pathData="M75,110 V160 H150" />
+    <path
+        android:strokeColor="#22C55E"
+        android:strokeWidth="3"
+        android:pathData="M225,110 V160 H150" />
+
+    <!-- Assembly Point Circle (Green Safety Field) -->
+    <path
+        android:fillColor="#165B33"
+        android:strokeColor="#22C55E"
+        android:strokeWidth="2"
+        android:pathData="M150,140 C166.5,140 180,153.5 180,170 C180,186.5 166.5,200 150,200 C133.5,200 120,186.5 120,170 C120,153.5 133.5,140 150,140 Z" />
+
+    <!-- Labels text representation & Exit Icons -->
+    <path
+        android:fillColor="#FFC928"
+        android:pathData="M145,160 H155 V180 H145 Z M140,165 H160 V175 H140 Z" />
+    <path
+        android:fillColor="#FF4757"
+        android:pathData="M65,105 H85 V115 H65 Z M215,105 H235 V115 H215 Z" />
+</vector>

@@ -81,6 +81,31 @@
             android:exported="false"
             android:theme="@style/Theme.DrillEdu" />
 
+        <activity
+            android:name=".activities.DrillTimerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.DrillEdu" />
+
+        <activity
+            android:name=".activities.ReportIncidentActivity"
+            android:exported="false"
+            android:theme="@style/Theme.DrillEdu" />
+
+        <activity
+            android:name=".activities.AchievementsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.DrillEdu" />
+
+        <activity
+            android:name=".activities.EvacuationMapActivity"
+            android:exported="false"
+            android:theme="@style/Theme.DrillEdu" />
+
+        <activity
+            android:name=".activities.FlashcardsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.DrillEdu" />
+
     </application>
 
 </manifest>
